@@ -67,7 +67,7 @@ describe('GET /todos', () => {
 	it('should get all todos', (done) => {
 		request(app)
 			.get('/todos')
-			//.expect(200)
+			.expect(200)
 			.expect((res) => {
 				expect(res.body.todos.length).toBe(2);
 			})
@@ -75,9 +75,37 @@ describe('GET /todos', () => {
 	});
 });
 
-describe('GET /todos/:id' () => {
+describe('GET /todos/:id', () => {
 	it('should return todo doc', (done) => {
 		request(app)
 		.get(`/todos/${todos[0]._id.toHexString()}`)//toHexString() convert objectID to a string to be passed into URL
+		.expect(200)
+		.expect((res) => {
+			expect((res.body.todo.text)).toBe(todos[0].text);
+		})
+		.end(done);
 	});
+
+	it('should return a 404 if todo not found', (done) => {
+		//make sure you get 400 back
+		var hexId = new ObjectID().toHexString();
+
+		request(app)
+		//.get(`/todos/5c4dfb2821aa3d1410cd125c`)
+		.get(`/todos/${hexId}`)
+		.expect(404)
+		.end(done);
+	})
+
+	it('should return 404 for non-object IDs', (done) => {
+		// /todos/123
+		request(app)
+		.get('/todos/123')
+		.expect(404)
+		// .expect((res) => {
+		// 	expect(res.body.text).toNotBe(ObjectID());
+		// })
+		.end(done);
+	})
 });
+
