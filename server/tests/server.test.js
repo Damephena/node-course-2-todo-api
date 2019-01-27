@@ -1,20 +1,18 @@
 const request = require('supertest');
 const expect = require('expect');
+const {ObjectID} = require('mongodb');
 //Mocha and Nodemon do not need to be required
 
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
 //add seed data(dummy todos)
 const todos = [{
+	_id: new ObjectID(),
 	text: 'First test todo'
 }, {
+	_id: new ObjectID(),
 	text: 'Second test todo'
 }];
-
-// //to empty DB before every request
-// beforeEach((done) => {
-// 	Todo.remove({}).then(() => done());
-// });
 
 //to empty DB before each request
 beforeEach((done) => {
@@ -74,5 +72,12 @@ describe('GET /todos', () => {
 				expect(res.body.todos.length).toBe(2);
 			})
 			.end(done); //this is not asynchronous, hence, no callback used.
+	});
+});
+
+describe('GET /todos/:id' () => {
+	it('should return todo doc', (done) => {
+		request(app)
+		.get(`/todos/${todos[0]._id.toHexString()}`)//toHexString() convert objectID to a string to be passed into URL
 	});
 });
