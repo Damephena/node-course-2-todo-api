@@ -23,7 +23,7 @@ app.post('/todos', (req, res) => {
 
 	todo.save().then((doc) => {
 		res.send(doc);
-	}, (e) => {
+	}).catch((e) => {
 		res.status(400).send(e);
 	});
 });
@@ -32,7 +32,7 @@ app.post('/todos', (req, res) => {
 app.get('/todos', (req, res) => {
 	Todo.find().then((todos) => {
 		res.send({todos});
-	}, (e) => {
+	}).catch((e) => {
 		res.status(400).send(e);
 	});
 });
@@ -51,7 +51,7 @@ app.get('/todos/:id', (req, res) => {
 		}
 		// console.log('Todo by ID: ', todo);
 		res.status(200).send({todo});
-	}, (e) => {
+	}).catch((e) => {
 		res.status(400).send();
 	});
 	
