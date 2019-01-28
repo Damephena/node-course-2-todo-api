@@ -6,8 +6,9 @@ mongoose.Promise = global.Promise;
 let db = {
 	localhost: 'mongodb://localhost:27017/TodoApp',
 	mlab: 'mongodb://damephena:Learning1@ds213665.mlab.com:13665/node-todo-api'
-}
+};
 
-mongoose.connect(db.localhost || db.mlab, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || db.localhost, { useNewUrlParser: true});
+//mongoose.connect(db.localhost || db.mlab, { useNewUrlParser: true });
 //process.env.PORT
 module.exports = {mongoose};
