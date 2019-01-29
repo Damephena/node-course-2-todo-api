@@ -10,7 +10,7 @@ var {User} = require('./models/user');
 var app = express();
 
 //To make it Heroku ready
-const port = process.argv.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 //middleware
 app.use(bodyParser.json());
@@ -30,6 +30,7 @@ app.post('/todos', (req, res) => {
 
 // // //Read resource
 app.get('/todos', (req, res) => {
+	
 	Todo.find().then((todos) => {
 		res.send({todos});
 	}).catch((e) => {
