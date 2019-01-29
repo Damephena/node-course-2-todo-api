@@ -8,7 +8,7 @@ let db = {
 	mlab: 'mongodb://damephena:Learning1@ds213665.mlab.com:13665/node-todo-api'
 };
 
-mongoose.connect( process.env.PORT? db.mlab : db.localhost, { useNewUrlParser: true});
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp', { useNewUrlParser: true});
 //mongoose.connect(db.localhost || db.mlab, { useNewUrlParser: true });
 //process.env.PORT
 module.exports = {mongoose};
