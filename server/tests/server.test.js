@@ -18,6 +18,7 @@ const todos = [{
 beforeEach((done) => {
 	Todo.remove({}).then(() => {
 		return Todo.insertMany(todos);
+		done();
 	}).then(() => done());
 });
 
@@ -109,3 +110,25 @@ describe('GET /todos/:id', () => {
 	})
 });
 
+describe('DELETE /todos/:id', () => {
+	it('should remove a todo', (done) => {
+		var hexId = todos[1]._id.toHexString();
+
+		request(app)
+			.delete(`/todos/${hexId}`)
+			.expect(200)
+			.expect((res) => {
+				expect(res.body.todo._id).toBe(hexId);
+			})
+			.end((err, res) => {
+				if (err) {
+					return done(err);
+				}
+			});
+			//Query database to be sure
+			Todo.findById(hexId).then((todo) => {
+				expect(todo).toNotExist();
+				done();
+			}).catch((e) => done(e));
+	});
+})
