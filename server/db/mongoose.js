@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 //connect to db
 let db = {
 	localhost: 'mongodb://localhost:27017/TodoApp',
-	mlab: 'mongodb://damephena:Learning1@ds213665.mlab.com:13665/node-todo-api'
+	mlab: 'mongodb://damephena:*********@ds213665.mlab.com:13665/node-todo-api'
 };
 
 mongoose.connect( process.env.MONGODB_URI, { useNewUrlParser: true}).then(() => {

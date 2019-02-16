@@ -18,9 +18,8 @@ const todos = [{
 
 //to empty DB before each request
 beforeEach((done) => {
-	Todo.remove({}).then(() => {
-		return Todo.insertMany(todos);
-		
+	Todo.deleteMany({}).then(() => {
+		return Todo.insertMany(todos);	
 	}).then(() => done());
 });
 
