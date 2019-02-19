@@ -75,7 +75,7 @@ UserSchema.statics.findByToken= function(token){
 		'tokens.access': 'auth'
 	})
 }
-
+//Login Model method
 UserSchema.statics.findByCredentials = function(email, password) {
 	var User = this;
 
