@@ -58,6 +58,18 @@ UserSchema.methods.generateAuthToken = function(){
 		return token;
 	});
 };
+
+UserSchema.methods.removeToken = function (token) {
+	var user = this;
+
+	return user.update({
+		// $pull is a MongoDB operator. Removes objects from an array that matches certain criteria
+		$pull : {
+			tokens: {token}
+		}
+	});
+};
+
 //to create MODEL method, we use statics.
 UserSchema.statics.findByToken= function(token){
 	var User = this;
@@ -87,9 +99,10 @@ UserSchema.statics.findByCredentials = function(email, password) {
 		return new Promise((resolve, reject) => {
 			bcrypt.compare(password, user.password, (err, res) => {
 				if (res) {
-					return resolve(user);
+					resolve(user);
+				} else {
+					reject(err);
 				}
-				return reject(err);
 			});
 		});
 	})
