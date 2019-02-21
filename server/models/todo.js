@@ -14,7 +14,13 @@ var Todo = mongoose.model('Todo', {
 	completedAt: {
 		type: Number,
 		default: null
-	}
+	},
+	// Inorder for todos to be accessed by only Logged-in users
+	// To associate users with their respective todos.
+	_creator: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	} 
 });
 
 module.exports = {Todo};

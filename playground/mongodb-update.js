@@ -8,7 +8,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
 	}
 	console.log('Connected to MongoDB server');
 	const db = client.db('TodoApp'); //To get ACCESS to a database reference(which is TodoApp)
-
+ 
 	//findOneAndUpdate(filter, update, options, callback)
 	db.collection('Todos').findOneAndUpdate({
 		_id: ObjectID("5c44cfe5b815cf3b5d45771d"),
@@ -35,3 +35,6 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
 	})
 	// client.close();
 });
+
+// findByIdAndUpdate()
+findByIdAndUpdate(id, {$set: body}, {new: true})
